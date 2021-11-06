@@ -1,0 +1,5 @@
+TOKEN: 'development_token'
+DB_NAME: 'development_base'
+DB_USER_NAME: 'development_user'
+DB_PASSWORD: 'development_password'
+DB_HOST: 'localhost'
