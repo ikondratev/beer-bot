@@ -2,7 +2,7 @@ require 'telegram/bot'
 require './constants/environment'
 require './config/load/env'
 
-APP_MODE = ARGV[0] || "test"
+APP_MODE = ARGV[0]
 
 return unless Enviroment::MODES.include?(APP_MODE)
 
