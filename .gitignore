@@ -58,6 +58,7 @@ build-iPhoneSimulator/
 logfile
 config/database.yml
 Gemfile.lock
+config/production.yml
 
 # Used by RuboCop. Remote config files pulled in from inherit_from directive.
 # .rubocop-https?--*
