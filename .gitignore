@@ -52,5 +52,13 @@ build-iPhoneSimulator/
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 
+.idea/
+.ruby-version
+.ruby-gemset
+logfile
+config/database.yml
+Gemfile.lock
+config/production.yml
+
 # Used by RuboCop. Remote config files pulled in from inherit_from directive.
 # .rubocop-https?--*
