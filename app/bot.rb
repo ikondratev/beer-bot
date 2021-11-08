@@ -1,22 +1,27 @@
 require 'telegram/bot'
 require './constants/environment'
 require './config/load/env'
+require './services/bot/actions'
 
 APP_MODE = ARGV[0]
 
 return unless Enviroment::MODES.include?(APP_MODE)
 
-TOKEN = Config::Load::Env.abra(app_mode: APP_MODE)
+TOKEN = Config::Load::Env.store(
+  app_mode: APP_MODE, value: "token")
+
+BOT_ACTIONS = Config::Load::Env.store(
+  app_mode: APP_MODE,
+  value: "bot_actions").split(",").map(&:to_s)
+
+actions = Services::Bot::Actions.new(BOT_ACTIONS)
 
 Telegram::Bot::Client.run(TOKEN) do |bot|
   bot.listen do |message|
-    case message.text
-    when '/start'
-      bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}, pidor")
-    when '/hello'
-      bot.api.send_message(chat_id: message.chat.id, text: "Hello pidor")
-    when '/stop'
-      bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
+    if BOT_ACTIONS.include?(message.text)
+      actions.call(message: message)
+    else
+      bot.api.send_message(chat_id: message.chat.id, text: "Actions is not confirmed")
     end
   end
 end
