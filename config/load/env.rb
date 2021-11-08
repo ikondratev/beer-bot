@@ -3,10 +3,10 @@ module Config
     module Env
       require 'figaro'
 
-      def self.abra(app_mode: "test")
+      def self.store(app_mode: "test", value:)
         Figaro.application = Figaro::Application.new(environment: app_mode, path:Enviroment::MODES[app_mode.to_s])
         Figaro.load
-        Figaro.env.token
+        Figaro.env.send(value)
       end
     end
   end
