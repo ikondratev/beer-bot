@@ -12,7 +12,7 @@ TOKEN = Config::Load::Env.store(
 
 BOT_ACTIONS = Config::Load::Env.store(
   app_mode: APP_MODE,
-  value: "bot_actions").split(",").map(&:to_s)
+  value: "bot_actions")&.split(",")&.map(&:to_s)
 
 actions = Services::Bot::Actions.new(BOT_ACTIONS)
 
