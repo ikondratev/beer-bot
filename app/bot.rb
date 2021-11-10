@@ -3,16 +3,12 @@ require './constants/environment'
 require './config/load/env'
 require './services/bot/actions'
 
-APP_MODE = ARGV[0]
+APP_MODE    = ARGV[0]
+BOT_ACTIONS = Enviroment::BOT_ACTIONS
+TOKEN       = Config::Load::Env.store(app_mode: APP_MODE, value: "token")
+MODES       = Enviroment::MODES
 
-return unless Enviroment::MODES.include?(APP_MODE)
-
-TOKEN = Config::Load::Env.store(
-  app_mode: APP_MODE, value: "token")
-
-BOT_ACTIONS = Config::Load::Env.store(
-  app_mode: APP_MODE,
-  value: "bot_actions")&.split(",")&.map(&:to_s)
+return unless MODES.include?(APP_MODE)
 
 actions = Services::Bot::Actions.new(BOT_ACTIONS)
 
