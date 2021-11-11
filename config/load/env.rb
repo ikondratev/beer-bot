@@ -1,11 +1,16 @@
 module Config
   module Load
-    module Env
+    class Env
       require 'figaro'
+      require './constants/inner'
 
-      def self.store(app_mode: "test", value:)
-        Figaro.application = Figaro::Application.new(environment: app_mode, path:Enviroment::MODES[app_mode.to_s])
+      def initialize(app_mode: "test")
+        path = Constants::Inner::MODES[app_mode.to_s]
+        Figaro.application = Figaro::Application.new(environment: app_mode, path:path)
         Figaro.load
+      end
+
+      def store(value:)
         Figaro.env.send(value)
       end
     end
