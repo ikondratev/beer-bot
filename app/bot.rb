@@ -12,3 +12,4 @@ TOKEN       = environment.store(value: "token")
 application = Services::Bot::Application.new(token: TOKEN)
 application.start
 
+0
