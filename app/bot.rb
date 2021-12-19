@@ -14,7 +14,7 @@ BASE_PARAMS  = { database:  environment.store(value: "db_name"),
                  user_name: environment.store(value: "db_user_name"),
                  host:      environment.store(value: "db_host") }
 
-application = Services::Bot::Application.new(token: TOKEN)
+application = Services::Bot::Application.new(token: TOKEN, base_params: BASE_PARAMS)
 application.start
 
 0
