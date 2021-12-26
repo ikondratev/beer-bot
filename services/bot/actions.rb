@@ -4,7 +4,7 @@ module Services
 
       def call(message:)
         response = store_message(message)
-        prepare_response(message, response)
+        prepare_response(response)
       end
 
       private
@@ -17,9 +17,10 @@ module Services
         end
       end
 
-      def prepare_response(message, text)
-        { chat_id: message.chat.id,
-          text: text }
+      def prepare_response(text)
+        {
+          text: text
+        }
       end
     end
   end
