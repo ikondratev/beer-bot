@@ -1,3 +1,5 @@
+require './services/bot/services/add_user'
+
 module Services
   module Bot
     class Actions
@@ -11,9 +13,11 @@ module Services
 
       def store_message(message)
         case message.text
-        when "/hello" then "Hello #{message.from.first_name}"
-        when "/start" then "Let's start #{message.from.first_name}"
-        when "/stop"   then  "Buy #{message.from.first_name}"
+        when "/hello"    then "Hello #{message.from.first_name}"
+        when "/start"    then "Let's start #{message.from.first_name}"
+        when "/stop"     then "Buy #{message.from.first_name}"
+        when "/add_user" then add_user(message)
+        else  "Unidentified action #{message.from.first_name}"
         end
       end
 
@@ -21,6 +25,10 @@ module Services
         {
           text: text
         }
+      end
+
+      def add_user(message)
+        Services::Bot::Services::AddUser.call(user: nil)
       end
     end
   end
