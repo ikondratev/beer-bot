@@ -1,6 +1,6 @@
 module Services
   module Bot
-    module Services
+    module Functions
       class AddUser
         def call(user: nil)
           user

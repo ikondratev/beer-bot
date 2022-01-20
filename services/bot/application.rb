@@ -11,10 +11,11 @@ module Services
       NOT_CONFIRMED = "Actions is not confirmed".freeze
       NOT_AUTHORIZE = "Sorry! You are haven't any rules".freeze
 
-      def initialize(token:, base_params:)
+      def initialize(env: environment)
+        base_params = prepare_base_params(env)
         Database::Connection.instance.adapter(connection_params: base_params)
         @users = Database::UsersModels.where(actions:USERS_ACTION)
-        @token = token
+        @token = env.store(value: "token")
         @bot_actions = Constants::Inner::BOT_ACTIONS
         initialize_containers
       end
@@ -51,6 +52,13 @@ module Services
         @users.any? do |user|
           user.token == token
         end
+      end
+
+      def prepare_base_params(environment)
+        { database:  environment.store(value: "db_name"),
+          password:  environment.store(value: "db_password"),
+          user_name: environment.store(value: "db_user_name"),
+          host:      environment.store(value: "db_host") }
       end
     end
   end

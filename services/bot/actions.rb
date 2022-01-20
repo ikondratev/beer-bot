@@ -1,4 +1,4 @@
-require './services/bot/services/add_user'
+require './services/bot/functions/add_user'
 
 module Services
   module Bot
@@ -21,14 +21,12 @@ module Services
         end
       end
 
-      def prepare_response(text)
-        {
-          text: text
-        }
+      def add_user(message)
+        Services::Bot::Functions::AddUser.new.call(user: message.text)
       end
 
-      def add_user(message)
-        Services::Bot::Services::AddUser.call(user: nil)
+      def prepare_response(text)
+        { text: text }
       end
     end
   end
