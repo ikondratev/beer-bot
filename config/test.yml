@@ -1,1 +1,5 @@
 TOKEN: 'test_token'
+DB_NAME: 'test_base'
+DB_USER_NAME: 'test_user'
+DB_PASSWORD: 'test_password'
+DB_HOST: 'localhost'
