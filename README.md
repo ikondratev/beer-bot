@@ -3,11 +3,17 @@
 
 ## It's include:
 ```sh
+ruby '2.7.2'
+
 gem 'telegram-bot-ruby'
 gem 'figaro'
+gem 'dry-system'
+gem 'activerecord'
+gem 'activesupport'
+gem 'pg'
 ```
 
-## How is it stars:
+## How is it starts?:
 ```sh
-./bin/beer-bot bundle exec ruby app/bot.rb production
+ bundle exec ruby app/bot.rb production
 ```
