@@ -10,15 +10,26 @@ module Database
     PORT = 9490
 
     def adapter(connection_params:)
+      prepared_param = prepare_param(connection_params)
+
       ActiveRecord::Base.establish_connection(
         adapter:  DB_PROVIDER,
         encoding: ENCODING,
         port:     PORT,
-        host:     connection_params[:host],
-        username: connection_params[:user_name],
-        password: connection_params[:password],
-        database: connection_params[:database]
+        host:     prepared_param[:host],
+        username: prepared_param[:user_name],
+        password: prepared_param[:password],
+        database: prepared_param[:database]
       )
+    end
+
+    private
+
+    def prepare_param(env)
+      { database:  env.store(value: "db_name"),
+        password:  env.store(value: "db_password"),
+        user_name: env.store(value: "db_user_name"),
+        host:      env.store(value: "db_host") }
     end
   end
 

@@ -1,20 +1,15 @@
 require 'telegram/bot'
 require './config/load/containers'
 require './constants/inner'
-require_relative '../../database/connection'
 
 module Services
   module Bot
     class Application
       include Config::Load::Containers
-      USERS_ACTION  = "admin".freeze
       NOT_CONFIRMED = "Actions is not confirmed".freeze
       NOT_AUTHORIZE = "Sorry! You are haven't any rules".freeze
 
       def initialize(env: environment)
-        base_params = prepare_base_params(env)
-        Database::Connection.instance.adapter(connection_params: base_params)
-        @users = Database::UsersModels.where(actions:USERS_ACTION)
         @token = env.store(value: "token")
         @bot_actions = Constants::Inner::BOT_ACTIONS
         initialize_containers
@@ -23,7 +18,7 @@ module Services
       def start
         Telegram::Bot::Client.run(@token) do |bot|
           bot.listen do |message|
-            next send_message(bot, message, { text: NOT_AUTHORIZE }) unless authorize_users(message)
+            next send_message(bot, message, { text: NOT_AUTHORIZE }) unless user_authorize(message)
 
             if @bot_actions.include?(message.text)
               response = actions_container!.call(message: message)
@@ -38,27 +33,12 @@ module Services
 
       private
 
+      def user_authorize(message)
+        authorization_container!.call(message: message)
+      end
+
       def send_message(bot, message, response)
         bot.api.send_message(chat_id: message.chat.id, text: response[:text])
-      end
-
-      def authorize_users(message)
-        return false if message.blank?
-
-        token = "#{message.chat.id}_#{message.chat.first_name}"
-
-        return false if @users.empty?
-
-        @users.any? do |user|
-          user.token == token
-        end
-      end
-
-      def prepare_base_params(environment)
-        { database:  environment.store(value: "db_name"),
-          password:  environment.store(value: "db_password"),
-          user_name: environment.store(value: "db_user_name"),
-          host:      environment.store(value: "db_host") }
       end
     end
   end

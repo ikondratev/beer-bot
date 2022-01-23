@@ -3,7 +3,6 @@ require './services/bot/functions/add_user'
 module Services
   module Bot
     class Actions
-
       def call(message:)
         response = store_message(message)
         prepare_response(response)
