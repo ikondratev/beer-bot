@@ -18,10 +18,13 @@ module Services
       def start
         Telegram::Bot::Client.run(@token) do |bot|
           bot.listen do |message|
+            params = message.text.split(" ")
+            action = params.first
+
             next send_message(bot, message, { text: NOT_AUTHORIZE }) unless user_authorize(message)
 
-            if @bot_actions.include?(message.text)
-              response = actions_container!.call(message: message)
+            if @bot_actions.include?(action)
+              response = actions_container!.call(message: message, action: action, params: params.drop(1))
             else
               response = { text: NOT_CONFIRMED }
             end
