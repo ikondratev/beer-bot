@@ -34,5 +34,15 @@ module Database
   end
 
   class UsersModels < ActiveRecord::Base
+    class << self
+      def generate_token(params)
+        "#{params[:chat_id]}_#{params[:first_name]}"
+      end
+
+      def generate_id
+        user = Database::UsersModels.last
+        user.id + 1
+      end
+    end
   end
 end
