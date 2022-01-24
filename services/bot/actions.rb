@@ -21,7 +21,7 @@ module Services
       end
 
       def add_user(message)
-        Services::Bot::Functions::AddUser.new.call(user: message.text)
+        Services::Bot::Functions::AddUser.new.call(message: message, params: nil)
       end
 
       def prepare_response(text)
