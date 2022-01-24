@@ -1,6 +1,6 @@
 module Services
-  module Authorization
-    class Authorize
+  module Containers
+    class Authorization
       AUTHORIZE_USERS_GROUP  = %w[admin].freeze
       def call(message: nil)
         return false if message.blank?
