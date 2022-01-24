@@ -1,9 +1,9 @@
 require_relative '../../../database/connection'
 
 module Services
-  module Bot
-    module Functions
-      class AddUser
+  module Containers
+    module Actions
+      class AddUserAction
         def call(message: nil, params: nil)
           return false if params.empty?
 
@@ -22,6 +22,7 @@ module Services
           user.email   = user_params[:email]
           user.save
 
+          "Successful added user #{user.email}"
         rescue => e
           "Fail: #{e.message}"
         end
