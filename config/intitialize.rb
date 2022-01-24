@@ -4,7 +4,7 @@ require_relative '../database/connection'
 
 module Config
   module Initialize
-    def load(app_mode: nil)
+    def load_configuration!(app_mode: nil)
       return if app_mode.blank?
 
       environment = Config::Load::Env.new(app_mode: app_mode)
