@@ -1,6 +1,7 @@
 require 'singleton'
 require 'active_record'
 require 'pg'
+require "base64"
 
 module Database
   class Connection
@@ -42,6 +43,18 @@ module Database
       def generate_id
         user = Database::UsersModels.last
         user.id + 1
+      end
+
+      def to_base_64(user)
+        Base64.encode64("#{user.token}_#{user.email}_#{user.name}")
+      end
+
+      def not_unique_user?(user)
+        users = Database::UsersModels.all
+
+        users.any? do |base_user|
+          self.to_base_64(base_user) ==  self.to_base_64(user)
+        end
       end
     end
   end
