@@ -37,7 +37,7 @@ module Database
   class UsersModels < ActiveRecord::Base
     class << self
       def generate_token(params)
-        "#{params[:chat_id]}_#{params[:first_name]}"
+        Base64.encode64("#{params[:chat_id]}_#{params[:first_name]}").gsub!(/[^0-9A-Za-z]/, '')
       end
 
       def generate_id

@@ -9,7 +9,7 @@ module Services
 
         return false unless @app_suers
 
-        user_token = "#{message.chat.id}_#{message.chat.first_name}"
+        user_token = generate_token(message)
 
         authorize(user_token)
       end
@@ -18,6 +18,12 @@ module Services
 
       def find_users
         Database::UsersModels.where(actions: AUTHORIZE_USERS_GROUP)
+      end
+
+      def generate_token(message)
+        params = { chat_id: message.chat.id, first_name:  message.chat.first_name }
+
+        Database::UsersModels.generate_token(params)
       end
 
       def authorize(user_token)
