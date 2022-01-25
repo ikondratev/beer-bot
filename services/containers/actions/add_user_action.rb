@@ -4,16 +4,16 @@ module Services
   module Containers
     module Actions
       class AddUserAction
-        def call(message: nil, params: nil)
+        def call(params: nil)
           return false if params.empty?
 
-          create_user(message, params)
+          create_user(params)
         end
 
         private
 
-        def create_user(message, params)
-          user_params = prepare_params(message, params)
+        def create_user(params)
+          user_params = prepare_params(params)
           user         = Database::UsersModels.new
           user.id      = Database::UsersModels.generate_id
           user.token   = Database::UsersModels.generate_token(user_params)
@@ -29,11 +29,11 @@ module Services
           "Fail: #{e.message}"
         end
 
-        def prepare_params(message, params)
-          { chat_id:    message.chat.id,
-            first_name: params[0],
+        def prepare_params(params)
+          { first_name: params[0],
             email:      params[1],
-            actions:    params[2] || "admin" }
+            actions:    params[2] || "admin",
+            chat_id:    params[3] || "" }
         end
       end
     end
