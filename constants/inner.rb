@@ -6,6 +6,6 @@ module Constants
       "test" => "./config/test.yml"
     }.freeze
 
-    BOT_ACTIONS = %w[/ping /add_user].freeze
+    BOT_ACTIONS = %w[/ping /add_user /info /start].freeze
   end
 end
