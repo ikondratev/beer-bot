@@ -1,12 +1,10 @@
 require 'dry/system/container'
-require './services/containers/action'
-require './services/containers/authorization'
-require './services/containers/pencil'
 
 module Config
   module Load
     module Containers
       def initialize_containers
+        require_dir("./services/containers")
         container = Dry::Container.new
         container.register(:actions, Services::Containers::Action.new)
         container.register(:authorization, Services::Containers::Authorization.new)
