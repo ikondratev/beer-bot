@@ -29,6 +29,10 @@ module Services
         Services::Containers::Actions::GreetingAction.new.call(message: message)
       end
 
+      def pencil_anser(message)
+        Services::Containers::Actions::PencilAction.new.call(message: message)
+      end
+
       def prepare_response(text)
         { text: text }
       end

@@ -26,7 +26,7 @@ module Services
             if @bot_actions.include?(action)
               response = actions_container!.call(message: message, action: action, params: params.drop(1))
             else
-              response = { text: NOT_CONFIRMED }
+              response = { text: pencil_container!.call(message: message) }
             end
 
             send_message(bot, message, response)
