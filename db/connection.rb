@@ -3,7 +3,7 @@ require 'active_record'
 require 'pg'
 require "base64"
 
-module Database
+module Db
   class Connection
     include Singleton
     DB_PROVIDER = "postgresql".freeze
@@ -23,7 +23,7 @@ module Database
         database: prepared_param[:database]
       )
     rescue StandardError => e
-      raise Services::Errors::DBConnectionError.new("Connection")
+      raise Services::Errors::DBConnectionError.new(e.message)
     end
 
     private
@@ -43,7 +43,7 @@ module Database
       end
 
       def generate_id
-        user = Database::UsersModels.last
+        user = Db::UsersModels.last
         user.id + 1
       end
 
@@ -52,7 +52,7 @@ module Database
       end
 
       def not_unique_user?(user)
-        users = Database::UsersModels.all
+        users = Db::UsersModels.all
 
         users.any? do |base_user|
           self.to_base_64(base_user) ==  self.to_base_64(user)

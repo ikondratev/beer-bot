@@ -5,5 +5,7 @@ module Services
     class LoadContainerError < BackendError; end
 
     class DBConnectionError < BackendError; end
+
+    class AddUserActionError < BackendError; end
   end
 end

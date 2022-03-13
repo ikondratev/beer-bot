@@ -1,7 +1,9 @@
 # beer_bot
-**beer_bot** - It's a simple version app for using telegram_bot_api.
+```sh
+It's a simple version Ruby app with using telegram_bot_api. 
+```
 
-## It's include:
+## Dependencies:
 ```sh
 ruby '2.7.2'
 
@@ -12,8 +14,20 @@ gem 'activerecord'
 gem 'activesupport'
 gem 'pg'
 ```
-
-## How is it starts?:
+## Add environment:
+```sh
+    Environment: [production development test]
+    Add your own *.yml file 
+    Path: config/..
+    Example: 
+      file_name: production.yml
+      TOKEN: 'prod_token'
+      DB_NAME: 'prod_base'
+      DB_USER_NAME: 'prod_user'
+      DB_PASSWORD: 'prod_password'
+      DB_HOST: 'db_prod_host'
+```
+## Using:
 ```sh
  bundle exec ruby app/bot.rb production
 ```

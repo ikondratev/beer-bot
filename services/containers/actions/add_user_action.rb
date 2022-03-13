@@ -1,4 +1,4 @@
-require_relative '../../../database/connection'
+require_relative '../../../db/connection'
 
 module Services
   module Containers
@@ -14,19 +14,19 @@ module Services
 
         def create_user(params)
           user_params = prepare_params(params)
-          user         = Database::UsersModels.new
-          user.id      = Database::UsersModels.generate_id
-          user.token   = Database::UsersModels.generate_token(user_params)
+          user         = Db::UsersModels.new
+          user.id      = Db::UsersModels.generate_id
+          user.token   = Db::UsersModels.generate_token(user_params)
           user.name    = user_params[:name]
           user.actions = user_params[:actions]
           user.email   = user_params[:email]
 
-          raise "Not uniq user" if Database::UsersModels.not_unique_user?(user)
+          raise "Not uniq user" if Db::UsersModels.not_unique_user?(user)
 
           user.save
           "Successful added user #{user.email}"
-        rescue => e
-          "Fail: #{e.message}"
+        rescue StandardError => e
+          raise Services::Errors::AddUserActionError.new("Fail: #{e.message}")
         end
 
         def prepare_params(params)

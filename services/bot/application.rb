@@ -25,11 +25,11 @@ module Services
               { text:  Constants::Inner::NOT_AUTHORIZE }
             ) unless user_authorize(message)
 
-            if @bot_actions.include?(action)
-              response = actions_container!.call(message: message, action: action, params: params.drop(1))
-            else
-              response = { text: pencil_container!.call(message: message) }
-            end
+            response = if @bot_actions.include?(action)
+                          actions_container!.call(message: message, action: action, params: params.drop(1))
+                       else
+                          { text: pencil_container!.call(message: message) }
+                       end
 
             send_message(bot, message, response)
           rescue Services::Errors::BackendError => e
