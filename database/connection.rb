@@ -22,6 +22,8 @@ module Database
         password: prepared_param[:password],
         database: prepared_param[:database]
       )
+    rescue StandardError => e
+      raise Services::Errors::DBConnectionError.new("Connection")
     end
 
     private

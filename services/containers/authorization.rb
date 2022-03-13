@@ -12,6 +12,8 @@ module Services
         user_token = generate_token(message)
 
         authorize(user_token)
+      rescue StandardError => e
+        raise Services::Errors::DBConnectionError.new(e.message)
       end
 
       private

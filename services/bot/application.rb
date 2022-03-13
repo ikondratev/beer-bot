@@ -6,8 +6,6 @@ module Services
   module Bot
     class Application
       include Config::Load::Containers
-      NOT_CONFIRMED = "Actions is not confirmed".freeze
-      NOT_AUTHORIZE = "Sorry! You are haven't any rules".freeze
 
       def initialize(env: environment)
         @token = env.store(value: "token")
@@ -21,7 +19,11 @@ module Services
             params = message.text.split(" ")
             action = params.first
 
-            next send_message(bot, message, { text: NOT_AUTHORIZE }) unless user_authorize(message)
+            next send_message(
+              bot,
+              message,
+              { text:  Constants::Inner::NOT_AUTHORIZE }
+            ) unless user_authorize(message)
 
             if @bot_actions.include?(action)
               response = actions_container!.call(message: message, action: action, params: params.drop(1))
@@ -30,6 +32,8 @@ module Services
             end
 
             send_message(bot, message, response)
+          rescue Services::Errors::BackendError => e
+            next send_message(bot, message, { text:  Constants::Inner::BACKEND_ERROR })
           end
         end
       end
