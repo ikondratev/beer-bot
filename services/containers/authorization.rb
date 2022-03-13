@@ -19,13 +19,13 @@ module Services
       private
 
       def find_users
-        Database::UsersModels.where(actions: AUTHORIZE_USERS_GROUP)
+        Db::UsersModels.where(actions: AUTHORIZE_USERS_GROUP)
       end
 
       def generate_token(message)
         params = { chat_id: message.chat.id, first_name:  message.chat.first_name }
 
-        Database::UsersModels.generate_token(params)
+        Db::UsersModels.generate_token(params)
       end
 
       def authorize(user_token)
