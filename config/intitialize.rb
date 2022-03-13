@@ -7,6 +7,7 @@ module Config
     def load_configuration!(app_mode: nil)
       return if app_mode.blank?
 
+      require_dir("./services/errors")
       environment = Config::Load::Env.new(app_mode: app_mode)
       Database::Connection.instance.adapter(connection_params:environment)
       @application = Services::Bot::Application.new(env: environment)
