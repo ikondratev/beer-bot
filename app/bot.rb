@@ -11,4 +11,4 @@ return unless Constants::Inner::MODES.include?(APP_MODE)
 load_configuration!(app_mode: APP_MODE)
 
 # Main point to start server
-application!.start
+application!

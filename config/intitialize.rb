@@ -1,5 +1,6 @@
 require './config/load/env'
 require './services/bot/application'
+require 'logger'
 require_relative '../db/connection'
 
 module Config
@@ -10,7 +11,8 @@ module Config
       require_dir("./services/errors")
       environment = Config::Load::Env.new(app_mode: app_mode)
       Db::Connection.instance.adapter(connection_params:environment)
-      @application = Services::Bot::Application.new(env: environment)
+      logger = Logger.new(STDOUT)
+      @application = Services::Bot::Application.new(env: environment, logger: logger)
     end
 
     def require_dir(path)
@@ -19,7 +21,7 @@ module Config
     end
 
     def application!
-      @application
+      @application.start
     end
   end
 end
