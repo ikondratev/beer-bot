@@ -7,9 +7,10 @@ module Services
     class Application
       include Config::Load::Containers
 
-      def initialize(env: environment)
+      def initialize(env: environment, logger: nil)
         @token = env.store(value: "token")
         @bot_actions = Constants::Inner::BOT_ACTIONS
+        @logger = logger
         initialize_containers
       end
 
@@ -33,6 +34,7 @@ module Services
 
             send_message(bot, message, response)
           rescue Services::Errors::BackendError => e
+            @logger.error(e.message)
             next send_message(bot, message, { text:  Constants::Inner::BACKEND_ERROR })
           end
         end
