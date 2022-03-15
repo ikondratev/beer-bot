@@ -1,19 +1,11 @@
 require 'telegram/bot'
 require './config/load/containers'
 require './constants/inner'
+require './services/bot/base'
 
 module Services
   module Bot
-    class Application
-      include Config::Load::Containers
-
-      def initialize(env: environment, logger: nil)
-        @token = env.store(value: "token")
-        @bot_actions = Constants::Inner::BOT_ACTIONS
-        @logger = logger
-        initialize_containers
-      end
-
+    class Application < Services::Bot::Base
       def start
         Telegram::Bot::Client.run(@token) do |bot|
           bot.listen do |message|

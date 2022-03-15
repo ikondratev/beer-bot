@@ -9,9 +9,9 @@ module Config
       return if app_mode.blank?
 
       require_dir("./services/errors")
-      logger = Logger.new(STDOUT)
       environment = Config::Load::Env.new(app_mode: app_mode)
       Db::Connection.instance.adapter(connection_params:environment)
+      logger = Logger.new(STDOUT)
       @application = Services::Bot::Application.new(env: environment, logger: logger)
     end
 
@@ -21,7 +21,7 @@ module Config
     end
 
     def application!
-      @application
+      @application.start
     end
   end
 end
