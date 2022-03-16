@@ -4,7 +4,7 @@ module Services
   module Containers
     module Actions
       class GreetingAction
-        def call(message: nil)
+        def call(_message: nil)
           greeting
         end
 

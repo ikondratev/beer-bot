@@ -1,11 +1,19 @@
 require 'telegram/bot'
 require './config/load/containers'
 require './constants/inner'
-require './services/bot/base'
 
 module Services
   module Bot
-    class Application < Services::Bot::Base
+    class Application
+      include Config::Load::Containers
+
+      def initialize(env: environment, logger: nil)
+        @token = env.store(value: "token")
+        @bot_actions = Constants::Inner::BOT_ACTIONS
+        @logger = logger
+        initialize_containers
+      end
+
       def start
         Telegram::Bot::Client.run(@token) do |bot|
           bot.listen do |message|
@@ -15,19 +23,20 @@ module Services
             next send_message(
               bot,
               message,
-              { text:  Constants::Inner::NOT_AUTHORIZE }
+              { text: Constants::Inner::NOT_AUTHORIZE }
             ) unless user_authorize(message)
 
             response = if @bot_actions.include?(action)
-                          actions_container!.call(message: message, action: action, params: params.drop(1))
+                         actions_container!.call(message: message, action: action, params: params.drop(1))
                        else
-                          { text: pencil_container!.call(message: message) }
+                         { text: pencil_container!.call(message: message) }
                        end
 
             send_message(bot, message, response)
           rescue Services::Errors::BackendError => e
             @logger.error(e.message)
-            next send_message(bot, message, { text:  Constants::Inner::BACKEND_ERROR })
+
+            next send_message(bot, message, { text: Constants::Inner::BACKEND_ERROR })
           end
         end
       end

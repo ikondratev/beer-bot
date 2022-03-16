@@ -31,9 +31,9 @@ module Services
 
         def prepare_params(params)
           { first_name: params[0],
-            email:      params[1],
-            actions:    params[2] || "admin",
-            chat_id:    params[3] || "" }
+            email: params[1],
+            actions: params[2] || "admin",
+            chat_id: params[3] || "" }
         end
       end
     end

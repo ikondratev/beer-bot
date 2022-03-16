@@ -14,10 +14,10 @@ module Db
       prepared_param = prepare_param(connection_params)
 
       ActiveRecord::Base.establish_connection(
-        adapter:  DB_PROVIDER,
+        adapter: DB_PROVIDER,
         encoding: ENCODING,
-        port:     PORT,
-        host:     prepared_param[:host],
+        port: PORT,
+        host: prepared_param[:host],
         username: prepared_param[:user_name],
         password: prepared_param[:password],
         database: prepared_param[:database]
@@ -29,10 +29,10 @@ module Db
     private
 
     def prepare_param(env)
-      { database:  env.store(value: "db_name"),
-        password:  env.store(value: "db_password"),
+      { database: env.store(value: "db_name"),
+        password: env.store(value: "db_password"),
         user_name: env.store(value: "db_user_name"),
-        host:      env.store(value: "db_host") }
+        host: env.store(value: "db_host") }
     end
   end
 
@@ -55,7 +55,7 @@ module Db
         users = Db::UsersModels.all
 
         users.any? do |base_user|
-          self.to_base_64(base_user) ==  self.to_base_64(user)
+          to_base_64(base_user) == to_base_64(user)
         end
       end
     end

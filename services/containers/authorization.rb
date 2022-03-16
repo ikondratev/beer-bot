@@ -1,7 +1,8 @@
 module Services
   module Containers
     class Authorization
-      AUTHORIZE_USERS_GROUP  = %w[admin].freeze
+      AUTHORIZE_USERS_GROUP = %w[admin].freeze
+
       def call(message: nil)
         return false if message.blank?
 
@@ -23,7 +24,7 @@ module Services
       end
 
       def generate_token(message)
-        params = { chat_id: message.chat.id, first_name:  message.chat.first_name }
+        params = { chat_id: message.chat.id, first_name: message.chat.first_name }
 
         Db::UsersModels.generate_token(params)
       end

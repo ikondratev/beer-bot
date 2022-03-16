@@ -13,11 +13,11 @@ module Services
 
       def actions(message, action, params)
         case action
-        when "/start"    then "Hello #{message.from.first_name} #{greeting(message)}"
-        when "/info"     then greeting(message)
-        when "/ping"     then "pong #{message.from.first_name}"
+        when "/start" then "Hello #{message.from.first_name} #{greeting(message)}"
+        when "/info" then greeting(message)
+        when "/ping" then "pong #{message.from.first_name}"
         when "/add_user" then add_user(params)
-        else  "Unidentified action #{message.from.first_name}"
+        else "Unidentified action #{message.from.first_name}"
         end
       end
 
@@ -26,7 +26,7 @@ module Services
       end
 
       def greeting(message)
-        Services::Containers::Actions::GreetingAction.new.call(message: message)
+        Services::Containers::Actions::GreetingAction.new.call(_message: message)
       end
 
       def pencil_anser(message)
