@@ -12,6 +12,8 @@ gem 'figaro'
 gem 'dry-system'
 gem 'activerecord'
 gem 'activesupport'
+gem 'rubocop'
+gem 'minitest'
 gem 'pg'
 ```
 ## Add environment:
