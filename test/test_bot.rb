@@ -1,9 +1,10 @@
 require 'minitest/autorun'
+require './app/bot'
 
 module Test
-  class BotTest < Minitest::Test
-    def test_first
-      assert_equal("1", "1")
+  class TestBot < Minitest::Test
+    def test_bot_initialize
+      assert_equal(App::Bot, App::Bot.new(app_mod: "production").class)
     end
   end
 end

@@ -8,7 +8,6 @@ module Config
     def load_configuration!(app_mode: nil)
       return if app_mode.blank?
 
-      require_dir("./services/errors")
       environment = Config::Load::Env.new(app_mode: app_mode)
       Db::Connection.instance.adapter(connection_params:environment)
       logger = Logger.new(STDOUT)

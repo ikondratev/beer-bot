@@ -1,7 +1,7 @@
 require 'singleton'
 require 'active_record'
 require 'pg'
-require "base64"
+require 'base64'
 
 module Db
   class Connection
@@ -22,8 +22,6 @@ module Db
         password: prepared_param[:password],
         database: prepared_param[:database]
       )
-    rescue StandardError => e
-      raise Services::Errors::DBConnectionError.new(e.message)
     end
 
     private

@@ -1,14 +1,22 @@
 require './config/intitialize'
 
-include Config::Initialize
+module App
+  class Bot
+    include Config::Initialize
 
-APP_MODE = ARGV[0]
+    def initialize(app_mod: )
+      @app_mode = app_mod
+    end
 
-return unless Constants::Inner::MODES.include?(APP_MODE)
+    def up
+      return unless Constants::Inner::MODES.include?(@app_mode)
 
-# Load environment based on app_mode
-# example: ["development", "production", "test"]
-load_configuration!(app_mode: APP_MODE)
+      # Load environment based on app_mode
+      # example: ["development", "production", "test"]
+      load_configuration!(app_mode: @app_mode)
 
-# Main point to start server
-application!
+      # Main point to start server
+      application!
+    end
+  end
+end
