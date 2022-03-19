@@ -3,6 +3,6 @@ rvm:
   - 2.7.2
 branches:
   only:
-    - master
+    - main
 script:
   - rake test
