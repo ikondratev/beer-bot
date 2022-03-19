@@ -1,6 +1,7 @@
 require 'telegram/bot'
 require './config/load/containers'
 require './constants/inner'
+require './services/errors/backend_error'
 
 module Services
   module Bot
