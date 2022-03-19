@@ -2,6 +2,8 @@ AllCops:
   Exclude:
     - config/*
     - Gemfile
+    - test/*
+    - Rakefile
 
 Style/FrozenStringLiteralComment:
   Enabled: false

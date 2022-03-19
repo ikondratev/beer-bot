@@ -31,5 +31,5 @@ gem 'pg'
 ```
 ## Using:
 ```sh
- bundle exec ruby app/bot.rb production
+ ruby -Ilib ./bin/bot production
 ```

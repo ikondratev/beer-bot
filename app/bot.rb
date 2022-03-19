@@ -4,7 +4,7 @@ module App
   class Bot
     include Config::Initialize
 
-    def initialize(app_mod: )
+    def initialize(app_mod: :test)
       @app_mode = app_mod
     end
 
