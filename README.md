@@ -1,6 +1,6 @@
 # beer_bot
 ```sh
-It's a simple version Ruby app with using telegram_bot_api. 
+Ruby app with using telegram_bot_api 
 ```
 
 ## Dependencies:

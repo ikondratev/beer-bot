@@ -17,15 +17,6 @@ module Config
       @application = Services::Bot::Application.new(env: environment, logger: logger!)
     end
 
-    def require_dir(path)
-      dir = Dir.glob File.join(path,  '*.rb')
-      dir.each { |file| require file }
-    end
-
-    def app_mode!
-      @app_mode
-    end
-
     def application!
       @application
     end
