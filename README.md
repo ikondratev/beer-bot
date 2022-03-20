@@ -13,6 +13,7 @@ gem 'dry-system'
 gem 'activerecord'
 gem 'activesupport'
 gem 'rubocop'
+gem 'rubocop-rake'
 gem 'minitest'
 gem 'pg'
 ```
