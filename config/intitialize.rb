@@ -8,7 +8,7 @@ module Config
   module Initialize
     include Services::Kernel::Lib
 
-    def load_configuration!(app_mode: nil)
+    def load_configuration!(app_mode = :development)
       return if app_mode.blank?
 
       environment = Config::Load::Env.new(app_mode: app_mode)
