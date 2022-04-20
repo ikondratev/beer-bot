@@ -13,3 +13,4 @@ gem 'pg'
 gem 'activesupport'
 gem 'activerecord'
 gem 'rubocop-rake', require: false
+gem 'require_all', '~> 3.0'

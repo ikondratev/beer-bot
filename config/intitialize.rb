@@ -1,8 +1,16 @@
-require './config/load/env'
-require './services/bot/application'
-require 'logger'
-require './services/kernel/lib'
-require_relative '../db/connection'
+require "require_all"
+require "figaro"
+require "logger"
+require "singleton"
+require "active_record"
+require "pg"
+require "base64"
+require "telegram/bot"
+require "dry/system/container"
+require "./config/load/env"
+require_all "./constants"
+require_all "./services"
+require_all "./db/connection"
 
 module Config
   module Initialize
