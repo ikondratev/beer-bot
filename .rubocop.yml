@@ -4,6 +4,7 @@ AllCops:
     - Gemfile
     - test/*
     - Rakefile
+    - db/migrate/*
 
 Style/FrozenStringLiteralComment:
   Enabled: false

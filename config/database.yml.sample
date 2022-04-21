@@ -1,0 +1,7 @@
+adapter: postgresql
+host: localhost
+encoding: utf-8
+database: test
+username: test
+password: 123
+port: 1000
