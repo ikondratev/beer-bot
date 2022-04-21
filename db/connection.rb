@@ -1,8 +1,3 @@
-require 'singleton'
-require 'active_record'
-require 'pg'
-require 'base64'
-
 module Db
   class Connection
     include Singleton

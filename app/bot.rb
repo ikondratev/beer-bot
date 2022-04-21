@@ -6,9 +6,9 @@ module App
 
     # @param [String] app_mode
     # @example development test production
-    def initialize(app_mode: :test)
+    def initialize(app_mode: :development)
       # Load environment based on app_mode:
-      load_configuration!(app_mode: app_mode)
+      load_configuration! app_mode
     end
 
     # @author

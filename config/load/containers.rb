@@ -1,8 +1,3 @@
-require 'dry/system/container'
-require './services/containers/action'
-require './services/containers/authorization'
-require './services/containers/pencil'
-
 module Config
   module Load
     module Containers
