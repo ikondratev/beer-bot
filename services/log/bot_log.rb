@@ -1,5 +1,3 @@
-require 'logger'
-
 module Services
   module Log
     class BotLog

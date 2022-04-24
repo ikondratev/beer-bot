@@ -1,7 +1,7 @@
-class AddModel < ActiveRecord::Migration[7.0]
+class AddUserModels < ActiveRecord::Migration[7.0]
   class << self
     def up
-      create_table :user_model do |t|
+      create_table :user_models do |t|
         t.column :name, :string, :null => true
         t.column :lastname, :string, :null => true
         t.column :email, :string, :null => true
@@ -13,7 +13,7 @@ class AddModel < ActiveRecord::Migration[7.0]
     end
 
     def down
-      drop_table :model
+      drop_table :user_models
     end
   end
 end

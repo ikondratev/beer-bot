@@ -1,5 +1,3 @@
-require './services/log/bot_log'
-
 module Services
   module Kernel
     module Lib

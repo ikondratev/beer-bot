@@ -5,4 +5,5 @@ branches:
   only:
     - main
 script:
-  - rake
+  - rake test
+  - rake rubocop

@@ -1,17 +1,14 @@
 module Db
   class Connection
     include Singleton
-    DB_PROVIDER = "postgresql".freeze
-    ENCODING = "unicode".freeze
-    PORT = 9490
 
-    def adapter(connection_params:)
-      prepared_param = prepare_param(connection_params)
+    def adapter(env:)
+      prepared_param = prepare_param(env)
 
       ActiveRecord::Base.establish_connection(
-        adapter: DB_PROVIDER,
-        encoding: ENCODING,
-        port: PORT,
+        adapter: prepared_param[:adapter],
+        encoding: prepared_param[:encoding],
+        port: prepared_param[:port],
         host: prepared_param[:host],
         username: prepared_param[:user_name],
         password: prepared_param[:password],
@@ -22,10 +19,13 @@ module Db
     private
 
     def prepare_param(env)
-      { database: env.store(value: "db_name"),
-        password: env.store(value: "db_password"),
-        user_name: env.store(value: "db_user_name"),
-        host: env.store(value: "db_host") }
+      { database: env.store(value: "database"),
+        password: env.store(value: "password"),
+        user_name: env.store(value: "username"),
+        host: env.store(value: "host"),
+        adapter: env.store(value: "adapter"),
+        encoding: env.store(value: "encoding"),
+        port: env.store(value: "port") }
     end
   end
 
