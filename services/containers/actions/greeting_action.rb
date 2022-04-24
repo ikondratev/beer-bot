@@ -1,5 +1,3 @@
-require './constants/inner'
-
 module Services
   module Containers
     module Actions
@@ -11,7 +9,7 @@ module Services
         private
 
         def greeting
-          "Available commands: #{Constants::Inner::BOT_ACTIONS}"
+          "Available commands: #{Constants::BOT_ACTIONS}"
         end
       end
     end

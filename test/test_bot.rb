@@ -4,11 +4,11 @@ require './app/bot'
 module Test
   class TestBot < Minitest::Test
     def setup
-      @bot = App::Bot.new(app_mode: "production")
+      @version = Constants::VERSION
     end
 
     def test_bot_initialize
-      assert_equal(App::Bot, @bot.class)
+      assert_equal("0.0.8", @version)
     end
   end
 end

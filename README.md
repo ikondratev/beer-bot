@@ -1,7 +1,9 @@
 # beer_bot
 ```sh
-Ruby app with using telegram_bot_api 
+Ruby app with using telegram-bot-ruby 
 ```
+
+[![Build Status](https://app.travis-ci.com/ikondratev/beer-bot.svg?branch=main)](https://app.travis-ci.com/github/ikondratev/beer-bot)
 
 ## Dependencies:
 ```sh
@@ -18,19 +20,33 @@ gem 'minitest'
 gem 'pg'
 ```
 ## Add environment:
+Put your own credentials as *.yml file to directory .config/
+
+Variants *.yml: production development test
 ```sh
-    Environment: [production development test]
-    Add your own *.yml file 
-    Path: config/..
-    Example: 
-      file_name: production.yml
       TOKEN: 'prod_token'
-      DB_NAME: 'prod_base'
-      DB_USER_NAME: 'prod_user'
-      DB_PASSWORD: 'prod_password'
-      DB_HOST: 'db_prod_host'
+```
+## Add database:
+Rename file database.yml.sample in directory .config/
+
+And add your local db credentials:
+
+```sh
+      adapter: "postgresql"
+      host:    "localhost"
+      encoding: "utf-8"
+      database: "test"
+      username: "test"
+      password: "test"
+      port:     "test"
+```
+## Make migration:
+In work directory:
+```sh
+rake db:migrate
 ```
 ## Using:
+To start app:
 ```sh
  ruby -Ilib ./bin/bot production
 ```

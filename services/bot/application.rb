@@ -7,7 +7,7 @@ module Services
 
       def initialize(env: environment, logger: nil)
         @token = env.store(value: "token")
-        @bot_actions = Constants::Inner::BOT_ACTIONS
+        @bot_actions = Constants::BOT_ACTIONS
         @logger = logger
         initialize_containers
       end
@@ -21,7 +21,7 @@ module Services
             next send_message(
               bot,
               message,
-              { text: Constants::Inner::NOT_AUTHORIZE }
+              { text: Constants::NOT_AUTHORIZE }
             ) unless user_authorize(message)
 
             response = if @bot_actions.include?(action)
@@ -32,9 +32,9 @@ module Services
 
             send_message(bot, message, response)
           rescue Services::Errors::BackendError => e
-            @logger.error(e.message)
+            @logger.error("[#{self.class}]: #{e.message}")
 
-            next send_message(bot, message, { text: Constants::Inner::BACKEND_ERROR })
+            next send_message(bot, message, { text: Constants::BACKEND_ERROR })
           end
         end
       end
