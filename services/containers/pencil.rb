@@ -1,7 +1,7 @@
 module Services
   module Containers
     class Pencil
-      PENCIL_ANSCVER = " у тебя в штанах".freeze
+      PENCIL_ANSWER = " у тебя в штанах".freeze
       def call(message:)
         send_pencil_message(message)
       end
@@ -9,7 +9,7 @@ module Services
       private
 
       def send_pencil_message(message)
-        "#{message.text} #{PENCIL_ANSCVER}"
+        "#{message.text} #{PENCIL_ANSWER}"
       end
     end
   end
