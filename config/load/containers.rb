@@ -6,21 +6,11 @@ module Config
         container.register(:actions, Services::Containers::Action.new)
         container.register(:authorization, Services::Containers::Authorization.new)
         container.register(:pencil, Services::Containers::Pencil.new)
+        container.register(:logger, Services::Log::BotLog.new.logger)
         @actions_container = container.resolve(:actions)
         @authorization_container = container.resolve(:authorization)
         @pencil_container = container.resolve(:pencil)
-      end
-
-      def actions_container!
-        @actions_container
-      end
-
-      def authorization_container!
-        @authorization_container
-      end
-
-      def pencil_container!
-        @pencil_container
+        @logger = container.resolve(:logger)
       end
     end
   end

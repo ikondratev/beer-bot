@@ -1,15 +1,9 @@
-require './config/load/containers'
-
 module Services
   module Bot
     class Application
-      include Config::Load::Containers
-
-      def initialize(env: environment, logger: nil)
+      def initialize(env: environment)
         @token = env.store(value: "token")
         @bot_actions = Constants::BOT_ACTIONS
-        @logger = logger
-        initialize_containers
       end
 
       def start
@@ -18,21 +12,17 @@ module Services
             params = message.text.split(" ")
             action = params.first
 
-            next send_message(
-              bot,
-              message,
-              { text: Constants::NOT_AUTHORIZE }
-            ) unless user_authorize(message)
+            next send_message(bot, message, { text: Constants::NOT_AUTHORIZE }) unless user_authorize(message)
 
             response = if @bot_actions.include?(action)
-                         actions_container!.call(message: message, action: action, params: params.drop(1))
+                         Thread.current[:actions].call(message: message, action: action, params: params.drop(1))
                        else
-                         { text: pencil_container!.call(message: message) }
+                         { text: Thread.current[:pencil].call(message: message) }
                        end
 
             send_message(bot, message, response)
           rescue Services::Errors::BackendError => e
-            @logger.error("[#{self.class}]: #{e.message}")
+            Thread.current[:logger].error("[#{self.class}]: #{e.message}")
 
             next send_message(bot, message, { text: Constants::BACKEND_ERROR })
           end
@@ -42,7 +32,7 @@ module Services
       private
 
       def user_authorize(message)
-        authorization_container!.call(message: message)
+        Thread.current[:authorization].call(message: message)
       end
 
       def send_message(bot, message, response)

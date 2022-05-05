@@ -15,7 +15,7 @@ module App
     # Add thread with telegram bot api
     # Unless process was killed
     def up
-      safe { application!.start }
+      safe(:beer_boot) { application!.start }
     end
   end
 end
